@@ -3,6 +3,10 @@
 
 @section('content')
     <main>
+        <a href="{{route('home')}}" class="absolute flex place-items-center gap-1 pt-10 ml-5 text-center">
+            <ion-icon name="arrow-back" class="text-xl"></ion-icon>
+            <p>Back</p>
+        </a>
         <div class="flex flex-col  place-items-center">
             <div class="h-fit mt-3"><img src="{{asset('images/watermark_preview_image20240717-1-urrith-removebg-preview.png')}}" alt="" class="w-[250px] h-fit"></div>
             <form action="" method="post" class="mt-6 pt-10 px-12 w-2/6 h-auto  shadow-xl pb-4 shadow-gray-400 rounded-xl bg-white mx-auto">

@@ -9,25 +9,25 @@ class registerController extends Controller
 {
     function registerView()
     {
-        return view('login-register.register');
+        return view('login_register.register');
     }
 
     function registerView_1()
     {
-        return view('login-register.register_1');
+        return view('login_register.register_1');
     }
 
     function registerView_2()
     {
-        return view('login-register.register_2');
+        return view('login_register.register_2');
     }
 
     function modalView() {
-        return view('login-register.modal');
+        return view('login_register.modal');
     }
 
     function codeView()
     {
-        return view('login-register.code');
+        return view('login_register.code');
     }
 }

@@ -2,7 +2,7 @@
 
 
 @section('content')
-    <a href="{{route('modalView')}}" class=" flex place-items-center gap-1 pt-10 ml-5 text-center">
+    <a href="{{route('modalVerifView')}}" class="absolute top-0  flex place-items-center gap-1 pt-10 ml-5 text-center">
         <ion-icon name="arrow-back" class="text-xl"></ion-icon>
         <p>Back</p>
     </a>
@@ -21,13 +21,39 @@
                            hover:bg-primary hover:text-white transition-all duration-300 ease-in-out">Confirmer</a>
             </div>
 
-            <div class="text-gray-400 mt-5 text-xl flex flex-col gap-5 place-items-center">
-                <a href="" class=" hover:text-gray-700 transition-all duration-300 ease-in-out">Renvoyez le code</a>
+            <p id="timeout" class="flex text-xl gap-2 place-items-center  mt-5 justify-center">Renvoyer le code apres <span id="time" class="  font-bold ">10</span>s</p>
+
+            <div id="renvoyez" class="hidden text-gray-400 mt-5 text-xl flex-col gap-5 place-items-center">
+                <a href="" class=" flex justify-center hover:text-gray-700 transition-all duration-300 ease-in-out">Renvoyez le code</a>
             </div>
         </div>
     </main>
 @endsection
 
+
+@section('script')
+    <script>
+        let time = document.getElementById('time');
+        let resend = document.getElementById('renvoyez');
+        let timeout = document.getElementById('timeout');
+
+       setTimeout(()=> {
+
+           let  interval =  setInterval(()=> {
+               let newTime = parseInt(time.textContent);
+
+               newTime -= 1;
+               time.textContent = newTime;
+
+               if (time.textContent == '0') {
+                   clearInterval(interval);
+                   resend.classList.remove('hidden');
+                   timeout.classList.add('hidden');
+               }
+           },1000)
+           }, 2000)
+    </script>
+@endsection
 
 
 
