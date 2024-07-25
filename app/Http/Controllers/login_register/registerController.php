@@ -4,8 +4,11 @@ namespace App\Http\Controllers\login_register;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\userRegisterRequest;
+use App\Mail\RegisterMail;
 use App\Models\text_user;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Str;
 
 class registerController extends Controller
 {
@@ -35,6 +38,7 @@ class registerController extends Controller
 
    public function registerUser(userRegisterRequest $request)
     {
+        $token = str::random(4);
         $user = text_user::create([
             'nom' => $request->nom,
             'prenom' => $request->prenom,
@@ -43,8 +47,14 @@ class registerController extends Controller
             'password' => bcrypt($request->password),
             'numero' => $request->numero,
             'code' => bcrypt($request->code),
+            'token' => $token,
         ]);
 
-        return redirect()->route('loginView');
+        if ($user) {
+            Mail::to($user->email)->send(new RegisterMail($user));
+        }
+
+
+        return redirect()->route('codeVerifView');
     }
 }

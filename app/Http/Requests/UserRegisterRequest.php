@@ -11,7 +11,7 @@ class userRegisterRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -26,12 +26,12 @@ class userRegisterRequest extends FormRequest
             //
             'nom' => ['required', 'min:6'],
             'prenom' => ['required', 'min:6'],
-            'username' => ['required', 'min:6', 'unique:alpha_transit_users,username'],
-            'email' => ['required', 'email', 'unique:alpha_transit_users,email'],
-            'password' => ['required', 'min:8', 'unique:alpha_transit_users,password'],
+            'username' => ['required', 'min:6', 'unique:bank_users,username'],
+            'email' => ['required', 'email', 'unique:bank_users,email'],
+            'password' => ['required', 'min:8', 'unique:bank_users,password'],
             'passwordVerify' => ['required', 'same:password'],
-            'numero'=>['required', 'digits:9', 'unique:alpha_transit_users,numero'],
-            'code'=>['required', 'digits:4', 'unique:alpha_transit_users,code'],
+            'numero'=>['required', 'digits:9', 'unique:bank_users,numero'],
+            'code'=>['required', 'digits:4', 'unique:bank_users,code'],
             'codeVerify' => ['required', 'same:code'],
         ];
     }

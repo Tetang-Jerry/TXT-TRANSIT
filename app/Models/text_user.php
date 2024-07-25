@@ -12,6 +12,6 @@ class text_user extends Model
     protected $table = 'bank_users';
 
     protected $fillable = [
-      'nom', 'prenom', 'username', 'password', 'email', 'numero', 'code', 'passwordVerify', 'codeVerify'
+      'nom', 'prenom', 'username', 'password', 'email', 'numero', 'code', 'passwordVerify', 'codeVerify', 'token'
     ];
 }

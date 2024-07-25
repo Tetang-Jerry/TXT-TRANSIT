@@ -20,6 +20,7 @@ return new class extends Migration
             $table->string('password');
             $table->string('numero');
             $table->string('code');
+            $table->string('token');
             $table->timestamps();
         });
     }
