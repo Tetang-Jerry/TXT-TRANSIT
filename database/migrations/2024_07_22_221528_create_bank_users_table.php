@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('bank_users', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->bigInteger('numCompte')->unique();
             $table->string('nom');
             $table->string('prenom');
             $table->string('username');

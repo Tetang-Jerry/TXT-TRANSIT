@@ -15,6 +15,7 @@
         </p>
 
         <div class=" mt-4 gap-x-4 w-10 h-10 text-2xl font-medium text-blue-500 border border-blue-500 rounded-md dark:border-blue-400 dark:text-blue-400">
+
             <p class="font-semibold text-xl">{{$user->token}}</p>
         </div>
 

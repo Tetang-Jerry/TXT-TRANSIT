@@ -27,18 +27,27 @@ class registerController extends Controller
         return view('login_register.register_2');
     }
 
-    function modalView() {
-        return view('login_register.modal');
-    }
 
     function codeView()
     {
         return view('login_register.code');
     }
 
+    public function numComteGenerate(): int
+    {
+        do {
+          $num_compte = random_int(100000000, 999999999);
+
+        }while (text_user::where('numCompte', $num_compte)->exists());
+        return $num_compte;
+    }
+
    public function registerUser(userRegisterRequest $request)
     {
+
         $token = str::random(4);
+        $num_compte = $this->numComteGenerate();
+
         $user = text_user::create([
             'nom' => $request->nom,
             'prenom' => $request->prenom,
@@ -48,13 +57,18 @@ class registerController extends Controller
             'numero' => $request->numero,
             'code' => bcrypt($request->code),
             'token' => $token,
+            'numCompte' => $num_compte,
         ]);
 
         if ($user) {
             Mail::to($user->email)->send(new RegisterMail($user));
         }
 
+        session()->flash('user', $user);
 
-        return redirect()->route('codeVerifView');
+        return redirect()->route('codeView');
     }
+
+
+
 }
