@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('bank_users', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->string('session');
             $table->bigInteger('numCompte')->unique();
             $table->string('nom');
             $table->string('prenom');
@@ -22,6 +23,7 @@ return new class extends Migration
             $table->string('numero');
             $table->string('code');
             $table->string('token');
+            $table->string('tokenVerif');
             $table->timestamps();
         });
     }

@@ -7,9 +7,10 @@
         <p>Back</p>
     </a>
     <main>
-        <div class="h-auto  w-[500px] bg-white mx-auto mt-[200px] py-7 px-6 rounded-xl shadow-xl  shadow-gray-400">
+        <form method="post" action=""  class="h-auto  w-[500px] bg-white mx-auto mt-[200px] py-7 px-6 rounded-xl shadow-xl  shadow-gray-400">
+            @csrf
             <h1 class="text-center font-semibold text-4xl">Entrer Le Code</h1>
-            <div class="mt-10 flex justify-center gap-4">
+            <div class="cont mt-10 flex justify-center gap-4">
                 <input type="text" id="input1" class="w-[70px] h-[70px] rounded-md border border-gray-400 px-3 text-4xl" maxlength="1">
                 <input type="text" id="input2" class="w-[70px] h-[70px] rounded-md border border-gray-400 px-3 text-4xl" maxlength="1">
                 <input type="text" id="input3" class="w-[70px] h-[70px] rounded-md border border-gray-400 px-3 text-4xl" maxlength="1">
@@ -17,8 +18,8 @@
             </div>
 
             <div class="mt-10">
-                <a href=""  class="cursor-pointer flex justify-center  text-primary text-center  w-[60%] rounded-md mx-auto py-3 border border-primary
-                           hover:bg-primary hover:text-white transition-all duration-300 ease-in-out">Confirmer</a>
+                <button type="submit"   class="cursor-pointer flex justify-center  text-primary text-center  w-[60%] rounded-md mx-auto py-3 border border-primary
+                           hover:bg-primary hover:text-white transition-all duration-300 ease-in-out">Confirmer</button>
             </div>
 
             <p id="timeout" class="flex text-xl gap-2 place-items-center  mt-5 justify-center">Renvoyer le code apres <span id="time" class="  font-bold ">10</span>s</p>
@@ -26,7 +27,7 @@
             <div id="renvoyez" class="hidden text-gray-400 mt-5 text-xl flex-col gap-5 place-items-center">
                 <a href="" class=" flex justify-center hover:text-gray-700 transition-all duration-300 ease-in-out">Renvoyez le code</a>
             </div>
-        </div>
+        </form>
     </main>
 @endsection
 
@@ -57,6 +58,27 @@
 
         })
 
+        document.getElementById('tokenForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            const input1 = document.getElementById('input1')
+            const input2 = document.getElementById('input2')
+            const input3 = document.getElementById('input3')
+            const input4 = document.getElementById('input4')
+
+            const token = input1 + input2 + input3 + input4;
+
+            let tokenInput = document.createElement('input');
+            tokenInput.setAttribute('class', 'hidden');
+            tokenInput.setAttribute('name', 'token');
+            tokenInput.setAttribute('value', token);
+
+            form.appendChild(tokenInput);
+
+            form.submit();
+
+        })
+
         let time = document.getElementById('time');
         let resend = document.getElementById('renvoyez');
         let timeout = document.getElementById('timeout');
@@ -76,6 +98,9 @@
                }
            },1000)
            }, 2000)
+
+
+
     </script>
 @endsection
 

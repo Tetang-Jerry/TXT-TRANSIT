@@ -1,5 +1,8 @@
 <?php
 
+use App\Models\bank_admin;
+use App\Models\text_user;
+
 return [
 
     /*
@@ -40,6 +43,16 @@ return [
             'driver' => 'session',
             'provider' => 'users',
         ],
+
+        'user_auth' => [
+            'driver' => 'session',
+            'provider' => 'user_auth',
+        ],
+
+        'admin_auth' => [
+            'driver' => 'session',
+            'provider' => 'admin_auth',
+        ]
     ],
 
     /*
@@ -64,6 +77,18 @@ return [
             'driver' => 'eloquent',
             'model' => env('AUTH_MODEL', App\Models\User::class),
         ],
+
+        'user_auth' => [
+            'driver' => 'eloquent',
+            'model' => text_user::class
+        ],
+
+        'admin_auth' => [
+            'driver' => 'eloquent',
+            'model' => bank_admin::class
+        ]
+
+
 
         // 'users' => [
         //     'driver' => 'database',

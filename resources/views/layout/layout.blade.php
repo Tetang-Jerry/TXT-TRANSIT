@@ -10,7 +10,9 @@
     <link rel="stylesheet" href="{{asset('css/layout.css')}}">
     @vite('resources/css/app.css')
 </head>
+
 <body class="bg-gray-300">
+@yield('header')
 @yield('content')
 
 
