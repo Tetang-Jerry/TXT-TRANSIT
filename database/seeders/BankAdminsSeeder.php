@@ -20,7 +20,7 @@ class BankAdminsSeeder extends Seeder
             'nom' => 'Doe',
             'prenom' => 'John',
             'email' => 'johndoe@gmail.com',
-            'password' => Hash::make('password123'),
+                'password' => Hash::make('password123'),
             'created_at' => now(),
             'updated_at' => now(),
         ]);

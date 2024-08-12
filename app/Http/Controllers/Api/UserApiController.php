@@ -1,39 +1,24 @@
 <?php
 
-namespace App\Http\Controllers\login_register;
+namespace App\Http\Controllers\Api;
+
 
 use App\Models\Account;
 use App\Models\textUser;
 use App\Mail\RegisterMail;
-use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Mail;
-use App\Http\Requests\AdminLoginRequest;
-use App\Http\Requests\TokenVerifyRequest;
 use App\Http\Requests\UserRegisterRequest;
 
-class registerController extends Controller
+class UserApiController extends Controller
 {
-    function registerView()
-    {
-        return view('login_register.register');
-    }
+    public function users() {
+        $users = textUser::all();
 
-    function registerView_1()
-    {
-        return view('login_register.register_1');
-    }
-
-    function registerView_2()
-    {
-        return view('login_register.register_2');
-    }
-
-
-    function codeView()
-    {
-        return view('login_register.code');
+        return response()->json($users);
+        
+        //return $users;
     }
 
     public function numComteGenerate(): int
@@ -45,10 +30,10 @@ class registerController extends Controller
         return $account_num;
     }
 
+    public function store_user(UserRegisterRequest $request) {
 
-   public function registerUser(UserRegisterRequest $request)
-    {
-
+        $userCreated = null;
+        
         $token = str_pad(random_int(0, 9999), 4, '0', STR_PAD_LEFT);
         $account_num = $this->numComteGenerate();
         $tokenVerif = 0;
@@ -87,28 +72,25 @@ class registerController extends Controller
             Mail::to($user->email)->send(new RegisterMail($user));
         
         }
+
+        $userCreated = $user;
     
 
         session()->flash('user', $user);
 
-        return redirect()->route('codeView');
-    }
+        return response()->json([
+            "message" => "user created successfully",
+            "user" => $userCreated,
 
-    public function tokenVerify(TokenVerifyRequest $request)
-    {
-        $token = $request->token;
-
-        $user = textUser::where('token', $token)->first();
-
-        if ($user) {
-            $user->update(['tokenVerif' => 1]);
-            return redirect()->route('loginView')->with('success', 'Votre code est valide');
-        }else {
-            return redirect()->route('codeView')->with('error', 'Votre code est invalide');
-        }
-
+        ]);
     }
 
 
+    public function show_users() {
+        $users = textUser::all();
 
+        return response()->json($users);
+    }
+
+   
 }

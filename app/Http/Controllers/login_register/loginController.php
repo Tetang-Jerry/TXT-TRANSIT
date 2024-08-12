@@ -2,11 +2,12 @@
 
 namespace App\Http\Controllers\login_register;
 
-use App\Http\Controllers\Controller;
-use App\Http\Requests\AdminLoginRequest;
-use App\Http\Requests\UserLoginRequest;
+use App\Models\Account;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
+use App\Http\Requests\UserLoginRequest;
+use App\Http\Requests\AdminLoginRequest;
 
 class loginController extends Controller
 {
@@ -54,20 +55,24 @@ class loginController extends Controller
 
     public function userLogin(UserLoginRequest $request) {
         $required = $request->only('email', 'password');
-
+    
         if (Auth::guard('user_auth')->attempt($required)) {
             $user = Auth::guard('user_auth')->user();
             if ($user->tokenVerif === '1') {
+    
+            
                 $user->update(['session' => 1]);
-                return redirect()->intended('dashboard');
-            }else {
+    
+                // Pass the account number to the dashboard view
+                return redirect()->intended('dashboard')->with('account_num');
+            } else {
                 return redirect()->route('loginView')->with('tokenerror', 'Please verify your token first');
-
             }
-        }else {
-            return redirect()->route('loginView')->with('error', 'Email or password Incorrext');
+        } else {
+            return redirect()->route('loginView')->with('error', 'Email or password incorrect');
         }
     }
+    
 
     public function userLogout() {
         if (Auth::guard('user_auth')->check()) {

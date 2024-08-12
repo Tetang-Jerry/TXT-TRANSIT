@@ -1,7 +1,8 @@
 <?php
 
-use App\Models\bank_admin;
+use App\Models\textUser;
 use App\Models\text_user;
+use App\Models\bank_admin;
 
 return [
 
@@ -80,7 +81,7 @@ return [
 
         'user_auth' => [
             'driver' => 'eloquent',
-            'model' => text_user::class
+            'model' => textUser::class
         ],
 
         'admin_auth' => [

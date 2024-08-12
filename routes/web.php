@@ -40,6 +40,7 @@ Route::prefix('Admin')->group( function () {
    Route::get('/', [loginController::class, 'adminLoginView'])->name('adminLoginView');
    Route::get('/adminDashboard', [AdminController::class, 'adminDashboardView'])->name('adminDashboardView');
    Route::post('/loginAdmin', [loginController::class, 'adminLogin'])->name('adminLogin');
-   Route::get('adminlogout', [loginController::class, 'adminLogout'])->name('adminLogout');
+   Route::get('/adminlogout', [loginController::class, 'adminLogout'])->name('adminLogout');
+   Route::delete('/userDelete/{id}', [AdminController::class, 'deleteUser'])->name('deleteUser');
 
 });
